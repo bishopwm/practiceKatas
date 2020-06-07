@@ -8,32 +8,37 @@
 // 132189  -->  1 + 3 + 2 + 1 + 8 + 9 = 24  -->  2 + 4 = 6
 // 493193  -->  4 + 9 + 3 + 1 + 9 + 3 = 29  -->  2 + 9 = 11  -->  1 + 1 = 2
 
+let myNumber = 493193;
 
-let myNumber = 942;
-
-function recursiveSumify(myNumber){
+function digital_root(myNumber){
   let digits = ("" + myNumber).split("");
   let integerDigits = digits.map(Number);
-  // console.log(integerDigits);
-  let copyDigits = [...integerDigits];
-  let digitsSum = copyDigits.reduce(function(a, b){
+  let digitsSum = integerDigits.reduce(function(a, b){
       return a + b;
   });
-  // console.log(digitsSum);
-  if(digitsSum.toString().length <= 1){
-    console.log('done!, digital root is: ', digitsSum)
-    return digitsSum;
-  } else {
-    console.log('keep going!', digitsSum);
-    let digits = digitsSum.toString().split("");
-    console.log(digits)
-    integerDigits = digits.map(Number);
-    let copyIntegerDigits = [...integerDigits];
-    digitsSum = copyIntegerDigits.reduce(function(a, b){
-      return a + b;
-    });
-    return digitsSum;
-  }
+  if(digitsSum.toString().length == 1){
+      return digitsSum;
+    } else {
+      let secondDigits = digitsSum.toString().split("");
+      let secondIntegerDigits = secondDigits.map(Number);
+      let secondDigitsSum = secondIntegerDigits.reduce(function(a, b){
+        return a + b;
+      });
+      if(digitsSum.toString().length == 1){
+        return secondDigitsSum;
+      } else {
+        let thirdDigits = secondDigitsSum.toString().split("");
+        let thirdIntegerDigits = thirdDigits.map(Number);
+        let thirdDigitsSum = thirdIntegerDigits.reduce(function(a, b){
+          return a + b;
+        });
+        if(thirdDigitsSum.toString().length == 1){
+          return thirdDigitsSum;
+        } else {
+          return 1
+        }
+      }
+    }
 }
 
-recursiveSumify(myNumber);
+digital_root(myNumber);
