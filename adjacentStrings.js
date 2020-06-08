@@ -16,20 +16,42 @@
 // "dog dog dog dog cat cat" --> 2
 // "cat cat dog dog cat cat" --> 3
 
+// let searchString = "apple dog apple dog cat"
 
-// Attempt 1
+// function countAdjacentPairs(searchString) {
+//   let splitString = searchString.toLowerCase().split(" ");
+//   console.log(splitString);
+//   let filteredArray = splitString.filter(function(item, pos){
+//     return splitString.indexOf(item)!== pos; 
+//   });
+//   if(filteredArray)
+//   return filteredArray;
+//   return filteredArray.length;
+// }
 
-let searchString = "apple dog apple dog cat"
+// countAdjacentPairs(searchString);
+
+let searchString = "banana banana banana"
 
 function countAdjacentPairs(searchString) {
   let splitString = searchString.toLowerCase().split(" ");
   console.log(splitString);
-  let filteredArray = splitString.filter(function(item, pos){
-    return splitString.indexOf(item)!== pos; 
+  let filtered = splitString.filter(function (el) {
+    return el != '';
   });
-  if(filteredArray)
-  return filteredArray;
-  return filteredArray.length;
+console.log(filtered);
+  let arr = [];
+  for(i=0; i<filtered.length; i++){
+    if(filtered[i] === filtered[i+1]){
+     console.log('adjacent and the same: ', filtered[i]);
+     arr.push(filtered[i])
+     if(filtered[i] === filtered[i+1] && filtered[i+1] === filtered[i+2]){
+       arr.pop(filtered[i])
+     }
+    }
+  }
+  console.log(arr);
+  return arr.length;
 }
 
 countAdjacentPairs(searchString);
