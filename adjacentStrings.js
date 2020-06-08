@@ -34,25 +34,19 @@
 let searchString = "banana banana banana"
 
 function countAdjacentPairs(searchString) {
-  let splitString = searchString.toLowerCase().split(" ");
-  console.log(splitString);
-  let filtered = splitString.filter(function (el) {
-    return el != '';
-  });
-console.log(filtered);
-  let arr = [];
-  for(i=0; i<filtered.length; i++){
-    if(filtered[i] === filtered[i+1]){
-     console.log('adjacent and the same: ', filtered[i]);
-     arr.push(filtered[i])
-     if(filtered[i] === filtered[i+1] && filtered[i+1] === filtered[i+2]){
-       arr.pop(filtered[i])
-     }
+    let splitString = searchString.toLowerCase().split(" ").filter(function (e) {
+      return e != '';
+    });
+    let arr = [];
+    for(i=0; i<splitString.length; i++){
+      if(splitString[i] === splitString[i+1]){
+       arr.push(splitString[i])
+       if(splitString[i] === splitString[i+1] && splitString[i+1] === splitString[i+2]){
+         arr.pop(splitString[i])
+       }
+      }
     }
+    return arr.length;
   }
-  console.log(arr);
-  return arr.length;
-}
 
 countAdjacentPairs(searchString);
-
