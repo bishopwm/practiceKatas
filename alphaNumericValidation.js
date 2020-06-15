@@ -16,7 +16,7 @@ let string = 'Mazinkaiser';
 function alphanumeric(string){
   if(string.length < 1){
     return false;
-  } else if (string.includes(' ') || string.includes('_')){
+  } else if (string.includes(' ') || string.includes('_')) {
     return false;
   } 
   let elements = string.split("");
@@ -35,14 +35,16 @@ function alphanumeric(string){
 
   let validDigits = false;
   if(numbers.length >= 1){
-    if(numbers.includes(1 || 2 || 3 || 4 || 5 || 6 || 7 || 8 || 9 )){
+    if(numbers.includes(1 || 2 || 3 || 4 || 5 || 6 || 7 || 8 || 9)){
       validDigits = true;
     }
   }
   console.log('Valid Digits :', validDigits)
   if(validLetters === true || validDigits === true){
     return true;
-  } 
+  } else if (!validLetters && !validDigits){
+      return false;
+  }
 }
 
 alphanumeric(string);
