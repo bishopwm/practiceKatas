@@ -11,20 +11,38 @@
 // Test.assertEquals(alphanumeric("PassW0rd"), true)
 // Test.assertEquals(alphanumeric("     "), false)
 
-let string = 'helloworld';
+let string = 'Mazinkaiser';
 
 function alphanumeric(string){
   if(string.length < 1){
     return false;
   } else if (string.includes(' ') || string.includes('_')){
     return false;
-  }
+  } 
   let elements = string.split("");
   console.log(elements);
-  let filteredElements = elements.filter(function(item){
+  let numbers = elements.filter(function(item){
     return !isNaN(item);
-  })
-  console.log(filteredElements);
+  });
+  let latinLetters = elements.filter(function(item){
+    return item.match(/[a-z]/i); 
+  });
+  console.log('Valid Letters :', latinLetters);
+  let validLetters = false;
+  if(latinLetters.length === (elements.length - numbers.length)){
+    validLetters = true;
+  }
+
+  let validDigits = false;
+  if(numbers.length >= 1){
+    if(numbers.includes(1 || 2 || 3 || 4 || 5 || 6 || 7 || 8 || 9 )){
+      validDigits = true;
+    }
+  }
+  console.log('Valid Digits :', validDigits)
+  if(validLetters === true || validDigits === true){
+    return true;
+  } 
 }
 
 alphanumeric(string);
