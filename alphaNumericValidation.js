@@ -10,3 +10,21 @@
 // Test.assertEquals(alphanumeric("hello world_"), false)
 // Test.assertEquals(alphanumeric("PassW0rd"), true)
 // Test.assertEquals(alphanumeric("     "), false)
+
+let string = 'helloworld';
+
+function alphanumeric(string){
+  if(string.length < 1){
+    return false;
+  } else if (string.includes(' ') || string.includes('_')){
+    return false;
+  }
+  let elements = string.split("");
+  console.log(elements);
+  let filteredElements = elements.filter(function(item){
+    return !isNaN(item);
+  })
+  console.log(filteredElements);
+}
+
+alphanumeric(string);
