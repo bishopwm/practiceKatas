@@ -16,7 +16,7 @@ let string = 'Mazinkaiser';
 function alphanumeric(string){
   if(string.length < 1){
     return false;
-  } else if (string.includes(' ') || string.includes('_')) {
+  } else if (string.includes(' ') || string.includes('_') || string.includes("\n")) {
     return false;
   } 
   let elements = string.split("");
