@@ -9,5 +9,12 @@
 // If a string contains all repeating characters, it should return an empty string ("") or None -- see sample tests.
 
 function firstNonRepeatingLetter(s) {
-    // Add your code here
+    let s = 'stress';
+    function firstNonRepeatingLetter(s) {
+    let nonRepeatingLetters = s.split('').filter(e => s.indexOf(e) === s.lastIndexOf(e)).join('');
+    console.log(nonRepeatingLetters)
+    let firstNonRepeating = nonRepeatingLetters.slice(0, 1);
+    console.log(firstNonRepeating)
+    }
+    firstNonRepeatingLetter(s);
   }
