@@ -8,13 +8,30 @@
 
 // If a string contains all repeating characters, it should return an empty string ("") or None -- see sample tests.
 
+let s = 'sTress';
+
 function firstNonRepeatingLetter(s) {
-    let s = 'stress';
-    function firstNonRepeatingLetter(s) {
-    let nonRepeatingLetters = s.split('').filter(e => s.indexOf(e) === s.lastIndexOf(e)).join('');
-    console.log(nonRepeatingLetters)
-    let firstNonRepeating = nonRepeatingLetters.slice(0, 1);
-    console.log(firstNonRepeating)
-    }
-    firstNonRepeatingLetter(s);
+  let nonRepeatingLetters = s.toLowerCase().split('').filter(e => s.indexOf(e) === s.lastIndexOf(e)).join('');
+  //console.log(nonRepeatingLetters);
+  if(nonRepeatingLetters === ''){
+    return ""
+  } else {
+      let firstNonRepeating = nonRepeatingLetters.slice(0, 1);
+      //console.log(firstNonRepeating);
+      let correctCase = s.split('').includes(firstNonRepeating);
+      //console.log(correctCase);
+      let oppositeOne = firstNonRepeating.toUpperCase();
+      let oppositeTwo = firstNonRepeating.toLowerCase();
+      if(correctCase === false){
+        if(correctCase !== oppositeOne){
+          return oppositeOne
+        } else {
+          return oppositeTwo 
+        }
+      } else {
+        return firstNonRepeating;
+      }
   }
+}
+
+firstNonRepeatingLetter(s);
