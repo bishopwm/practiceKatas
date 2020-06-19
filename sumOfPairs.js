@@ -24,3 +24,28 @@
 
 // NOTE: There will also be lists tested of lengths upwards of 10,000,000 elements. Be sure your code doesn't time out.
 
+let ints = [1, 5, 6, 4, 6];
+let s = 7;
+
+var sum_pairs = function(ints, s){
+    // create an empty set
+    let uniqueSet = new Set();
+    console.log(uniqueSet)
+    // add the first integer to the set
+    uniqueSet.add(ints[0]);
+    console.log(uniqueSet)
+    // loop through the original numbers to identify the other number needed to satisfy the designated sum
+    for(let i=1; i<ints.length; i++){
+      // the number to satisfy the sum will be the sum minus the current index
+      let numberToSatisfySum = s - ints[i]
+      // if the unique set already has the number, return the current pair
+      if(uniqueSet.has(numberToSatisfySum)){
+        return [numberToSatisfySum, ints[i]]
+      // if the unique set doesn't yet have the number, continue adding numbers to the unique set until a number that satisfies the sum appears
+      } else {
+        uniqueSet.add(ints[i])
+      }
+    }
+}
+
+sum_pairs(ints, s);
