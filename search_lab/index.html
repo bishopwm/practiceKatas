@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/reset-min.css"
+      integrity="sha256-t2ATOGCtAIZNnzER679jwcFcKYfLlw01gli6F6oszk8="
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/algolia-min.css"
+      integrity="sha256-HB49n/BZjuqiCtQQf49OdZn63XuKFaxcIHWf0HNKte8="
+      crossorigin="anonymous"
+    />
+
+    <style>
+      body,
+      h1 {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem;
+      }
+      .search-panel {
+        display: grid;
+        grid-template-columns: 20% 75%;
+        grid-gap: 5%;
+      }
+
+      .ais-Highlight-highlighted {
+        color: inherit;
+        font-size: inherit;
+      }
+
+      #searchbox {
+        margin-bottom: 2rem;
+      }
+
+      #pagination {
+        margin: 2rem auto;
+        text-align: center;
+      }
+    </style>
+    <meta charset="utf-8" />
+    <title>Business.com</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="title">
+        <h1>Business.com</h1>
+      </div>
+      <div class="search-panel">
+        <div class="left-panel">
+          <div id="current-refinements"></div>
+          <h2>Brands</h2>
+          <div id="brand-list"></div>
+          <h2>Categories</h2>
+          <div id="hierarchical-menu"></div>
+          <h2>Price</h2>
+          <div id="range-slider"></div>
+        </div>
+        <div class="right-panel">
+          <div id="searchbox"></div>
+          <div id="hits"></div>
+          <div id="pagination"></div>
+        </div>
+      </div>
+    </div>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default%2CArray.prototype.find%2CArray.prototype.includes%2CPromise%2CObject.assign%2CObject.entries"></script>
+    <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
+    <script>
+      const searchClient = algoliasearch('XUEOOGPZPE', '35e95cbcdee1b41a83a9e334730636e2');
+      const search = instantsearch({
+        indexName: 'test_index_4',
+        searchClient,
+      });
+
+      search.addWidgets([
+        instantsearch.widgets.searchBox({
+          container: "#searchbox"
+        }),
+
+        instantsearch.widgets.hits({
+          container: '#hits',
+          templates: {
+            item: `
+                  <article>
+                    <h1>{{#helpers.highlight}}{ "attribute": "name" }{{/helpers.highlight}}</h1>
+                    <p>{{#helpers.highlight}}{ "attribute": "description" }{{/helpers.highlight}}</p>
+                  </article>
+                  `
+          }
+        }),
+        instantsearch.widgets.currentRefinements({
+          container: "#current-refinements"
+        }),
+        instantsearch.widgets.refinementList({
+          container: "#brand-list",
+          attribute: "brand"
+        }),
+        instantsearch.widgets.hierarchicalMenu({
+          container: "#hierarchical-menu",
+          attributes: [
+            'hierarchicalCategories.lvl0'
+          ]
+        }),
+        instantsearch.widgets.rangeSlider({
+          container: "#range-slider",
+          attribute: "price"
+        }),
+        instantsearch.widgets.pagination({
+          container: "#pagination"
+        })
+      ]);
+      search.start();
+    </script>
+  </body>
+</html>
