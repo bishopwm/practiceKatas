@@ -5,7 +5,7 @@ const apiKey = process.env.API_KEY;
 const appId = process.env.APPLICATION_ID;
 
 const client = algoliasearch(appId, apiKey);
-const index = client.initIndex('test_index_4');
+const index = client.initIndex('Sample_Index');
 
 index.setSettings({
     searchableAttributes: [
