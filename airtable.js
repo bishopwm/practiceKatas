@@ -1,37 +1,41 @@
-// // get table from base
-// let table = base.getTable("Stocks");
+// get table from base
+let table = base.getTable("Stocks");
 
-// // get stock name from 'Name' field
-// let queryResult = await table.selectRecordsAsync();
-// let record = queryResult.records;
-// console.log(record);
-
-
-
-// let updates = await table.updateRecordsAsync([
-//     {
-//         id: record[2].id,
-//         fields: {
-//             "Last close": 20,
-//             "Name": "BLURP"
-//         }
-//     }
-// ]);
-
-
-
+// get stock name from 'Name' field
+let queryResult = await table.selectRecordsAsync();
+let record = queryResult.records;
+for(let i=0; i<record.length; i++){
+  console.log(record[i].name);
+}
 
 // function to fetch stock info
-stockies = async () => {
-    fetch("https://financialmodelingprep.com/api/v3/historical-chart/1min/AAPL?apikey=1057dbc2b304d02fd3cba17464756fbe").then(function(response){
-        // Succes
-      return response.json();
-    }).then(function(data) {
-      console.log(data[0].date);
-    }).catch(function(err) {
-      // Error
-      console.warn('Something went wrong.', err);
-    });
+
+  let url = "https://financialmodelingprep.com/api/v3/historical-chart/1min/";
+  let stockName = record[0].name;
+  let stockId = record[0].id;
+  let stockIds = [];
+  for(let i=0; i<record.length; i++){
+    stockIds.push(record[i].id)
   }
-  // call stock function
-stockies();
+  let apiKey = "?apikey=1057dbc2b304d02fd3cba17464756fbe";
+  let resultsContainer = [];
+
+  await fetch(url + stockName + apiKey).then(function(response){
+    return response.json();
+  }).then(async function(data) {
+    resultsContainer.push(data);
+    let latestStock = resultsContainer[0].splice(0,1);
+    let latestStockClose = Number(latestStock[0].close);
+    console.log(latestStockClose);
+    await table.updateRecordsAsync([
+      {
+          id: stockId,
+          fields: {
+              "Last close": latestStockClose,
+          },
+      }
+  ]);
+  }).catch(function(err) {
+    console.warn('Something went wrong.', err);
+  });
+  console.log('done')
