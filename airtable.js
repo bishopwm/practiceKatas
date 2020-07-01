@@ -22,6 +22,7 @@ let record = queryResult.records;
 
 // percent change holder
 let allPercents = [];
+let allPercentsAndStocks = [];
 
 // requests
   for(let i=0; i<record.length; i++){
@@ -57,6 +58,9 @@ let allPercents = [];
 
       // calculate largest pecent change among stocks
       allPercents.push(percentChange);
+      allPercentsAndStocks.push(stockNames[i] + ' ' + percentChange);
+      console.log('all percents', allPercents);
+      console.log('all percents and stock names', allPercentsAndStocks);
 
       await table.updateRecordsAsync([
         {
@@ -74,9 +78,12 @@ let allPercents = [];
   }
 
   // calculate largest percent change:
-  let maxChange = Math.max(...allPercents) * 100
-  let roundedMaxChange = Math.round(100*maxChange)/100
+  // let maxChange = Math.round(100*(Math.max(...allPercents) * 100))/100
+  let maxChange = Math.max(...allPercents);
 
   // summary of updates
   console.log(`Total records updated: ${stockNames.length}`);
-  console.log(roundedMaxChange + '%');
+  console.log(maxChange + '%');
+
+  let maxStock = allPercentsAndStocks.find(e =>e.includes(maxChange.toString()));
+  console.log('max stock', maxStock.split(" ")[0]);
