@@ -26,8 +26,19 @@ let record = queryResult.records;
       return response.json();
     }).then(async function(data) {
       let latestStock = data.historical[0];
+      let lastFiveStockDays = data.historical.splice(0,5);
       let latestStockClose = Number(latestStock.close);
       console.log('Latest close: ', latestStockClose);
+
+      // five day average close price:
+      let sum = 0;
+      for(let i=0; i<lastFiveStockDays.length; i++){
+        sum += lastFiveStockDays[i].close
+      }
+      let fiveDayAverage = Number(sum/lastFiveStockDays.length);
+      console.log('5 day average ' + stockNames[i] + ' = ' + fiveDayAverage)
+
+
       await table.updateRecordsAsync([
         {
             id: stockIds[i],
