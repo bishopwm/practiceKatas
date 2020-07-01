@@ -17,7 +17,7 @@ let record = queryResult.records;
   console.log(stockIds);
 
 // request options:
-  let url = "https://financialmodelingprep.com/api/v3/historical-chart/1min/";
+  let url = "https://financialmodelingprep.com/api/v3/historical-price-full/";
   let apiKey = "?apikey=1057dbc2b304d02fd3cba17464756fbe";
 
 // requests
@@ -25,8 +25,8 @@ let record = queryResult.records;
     await fetch(url + stockNames[i] + apiKey).then(function(response){
       return response.json();
     }).then(async function(data) {
-      let latestStock = data.splice(0,1);
-      let latestStockClose = Number(latestStock[0].close);
+      let latestStock = data.historical[0];
+      let latestStockClose = Number(latestStock.close);
       console.log('Latest close: ', latestStockClose);
       await table.updateRecordsAsync([
         {
