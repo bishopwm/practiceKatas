@@ -13,18 +13,15 @@ let record = queryResult.records;
     stockIds.push(record[i].id);
   }
 
-  console.log(stockNames);
-  console.log(stockIds);
-
-// request options:
+// api request options:
   let url = "https://financialmodelingprep.com/api/v3/historical-price-full/";
   let apiKey = "?apikey=1057dbc2b304d02fd3cba17464756fbe";
 
-// percent change holder
+// percent change containers for max change calculation
 let allPercents = [];
 let allPercentsAndStocks = [];
 
-// requests
+// api requests
   for(let i=0; i<record.length; i++){
     await fetch(url + stockNames[i] + apiKey).then(function(response){
       return response.json();
@@ -33,7 +30,7 @@ let allPercentsAndStocks = [];
       let lastFiveStockDays = [...data.historical].splice(0,5);
       let previousFiveStockDays = [...data.historical].splice(5,5)
       let latestStockClose = Number(latestStock.close);
-      console.log(`Latest close ${stockNames[i]} = `, latestStockClose);
+    
 
       // calculate five day average close price:
       let sum = 0;
@@ -41,7 +38,6 @@ let allPercentsAndStocks = [];
         sum += lastFiveStockDays[i].close
       }
       let fiveDayAverage = Number(sum/lastFiveStockDays.length);
-      console.log('5 day average close' + stockNames[i] + ' = ', fiveDayAverage)
 
       // calculate previous five day average close price:
       let previousSum = 0;
@@ -50,18 +46,15 @@ let allPercentsAndStocks = [];
       }
       let previousFiveDayAvg = Number(previousSum/previousFiveStockDays.length);
       let fiveDayBaseline = previousFiveDayAvg;
-      console.log(`Previous 5 day average close ${stockNames[i]} = `, fiveDayBaseline);
 
       // calculate percent change in average 5 day close price since previous 5 days
       let percentChange = Number((fiveDayAverage/fiveDayBaseline)/100);
-      console.log(`Percent change from previous 5 day average for ${stockNames[i]} = `, percentChange);
 
-      // calculate largest pecent change among stocks
+      // calculate largest percent change among stocks
       allPercents.push(percentChange);
       allPercentsAndStocks.push(stockNames[i] + ' ' + percentChange);
-      console.log('all percents', allPercents);
-      console.log('all percents and stock names', allPercentsAndStocks);
 
+      // update records with last close and percent change
       await table.updateRecordsAsync([
         {
             id: stockIds[i],
@@ -78,12 +71,13 @@ let allPercentsAndStocks = [];
   }
 
   // calculate largest percent change:
-  // let maxChange = Math.round(100*(Math.max(...allPercents) * 100))/100
   let maxChange = Math.max(...allPercents);
+  let maxChangeRounded = Math.round(100*(Math.max(...allPercents) * 100))/100
 
   // summary of updates
+  console.log('-- SUMMARY --')
   console.log(`Total records updated: ${stockNames.length}`);
-  console.log(maxChange + '%');
 
   let maxStock = allPercentsAndStocks.find(e =>e.includes(maxChange.toString()));
-  console.log('max stock', maxStock.split(" ")[0]);
+  let maxStockName = maxStock.split(" ")[0];
+  console.log('Biggest change: ' + ' ' + maxStockName + ' is up ' + maxChangeRounded + '%');
