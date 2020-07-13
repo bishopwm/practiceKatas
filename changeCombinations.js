@@ -14,7 +14,7 @@
 
 
 let money = 10;
-let coins = [5, 2, 3]
+let coins = [5, 2, 3];
 
 function countCoins(money, coins) {
   let coinsCopy = [...coins];
@@ -31,3 +31,16 @@ function countCoins(money, coins) {
 }
 
 countCoins(money, coins);
+
+// Working solution from anatolych97//https://github.com/Anatolych97/CodeWars/blob/master/4%20kyu/4kyu_Counting_Change_Combinations.js
+
+// const countChange = function (money, coins, i=0) {
+//     if (money < 0) return 0;
+//     if (money === 0) return 1;
+
+//     if (i === coins.length && money > 0) {
+//         return 0;
+//     }
+
+//     return countChange(money - coins[i], coins, i) + countChange(money, coins, i + 1);
+// }
