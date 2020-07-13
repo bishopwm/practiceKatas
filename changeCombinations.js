@@ -19,9 +19,13 @@ let coins = [5, 2, 3]
 function countCoins(money, coins) {
   let coinsCopy = [...coins];
   let denominationHolder = [];
-  let newCoins = coinsCopy.map( (eachCoin) => {
-    denominationHolder.push(eachCoin + 1);
-  })
+  let comboCount = 0;
+  for(let i=0; i<coins.length; i++){
+    if(money % coins[i] === 0){
+      denominationHolder.push(coins[i]);
+    }
+  }
+  
   console.log(denominationHolder)
 
 }
