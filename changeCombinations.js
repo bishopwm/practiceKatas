@@ -12,6 +12,18 @@
 //   countChange(10, [5,2,3]) // => 4
 //   countChange(11, [5,7]) //  => 0
 
-let countChange = function(money, coins) {
-    // your implementation here
-  }
+
+let money = 10;
+let coins = [5, 2, 3]
+
+function countCoins(money, coins) {
+  let coinsCopy = [...coins];
+  let denominationHolder = [];
+  let newCoins = coinsCopy.map( (eachCoin) => {
+    denominationHolder.push(eachCoin + 1);
+  })
+  console.log(denominationHolder)
+
+}
+
+countCoins(money, coins);
