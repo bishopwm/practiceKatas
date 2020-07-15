@@ -31,7 +31,9 @@ function longestConsec(arr, k) {
       return longest;
     }
   })
-  return longestString;
+  let longestStringIndex = copyArr.indexOf(longestString);
+  let consecutiveString = copyArr[longestStringIndex+1];
+  return longestString + consecutiveString;
 }
 
 longestConsec(arr, k);
