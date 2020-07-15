@@ -7,3 +7,16 @@
 
 // Note
 // consecutive strings : follow one after another without an interruption
+
+let arr = ["zone", "abigail", "theta", "form", "libe", "zas", "theta", "abigail"];
+let k = 2;
+
+function longestConsec(arr, k) {
+  let copyArr = [...arr];
+  let longElements = copyArr.filter((eachElement) => {
+    return eachElement.length > 6;
+  })
+  return longElements;
+}
+
+longestConsec(arr, k);
