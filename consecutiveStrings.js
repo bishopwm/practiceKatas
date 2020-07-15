@@ -12,11 +12,26 @@ let arr = ["zone", "abigail", "theta", "form", "libe", "zas", "theta", "abigail"
 let k = 2;
 
 function longestConsec(arr, k) {
+  if(arr.length === 0){
+    return "";
+  } else if (k > arr.length){
+    return "";
+  } else if (k <= 0){
+    return "";
+  }
   let copyArr = [...arr];
-  let longElements = copyArr.filter((eachElement) => {
-    return eachElement.length > 6;
+  // let longElements = copyArr.filter((eachElement) => {
+  //   return eachElement.length > 6;
+  // })
+  // return longElements;
+  let longestString = copyArr.reduce(function(longest, currentString){
+    if(currentString.length > longest.length){
+      return currentString;
+    } else {
+      return longest;
+    }
   })
-  return longElements;
+  return longestString;
 }
 
 longestConsec(arr, k);
