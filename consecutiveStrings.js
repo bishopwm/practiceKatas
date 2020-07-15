@@ -9,9 +9,10 @@
 // consecutive strings : follow one after another without an interruption
 
 let arr = ["zone", "abigail", "theta", "form", "libe", "zas", "theta", "abigail"];
-let k = 2;
+let k = 4;
 
 function longestConsec(arr, k) {
+  // exceptions first
   if(arr.length === 0){
     return "";
   } else if (k > arr.length){
@@ -19,11 +20,8 @@ function longestConsec(arr, k) {
   } else if (k <= 0){
     return "";
   }
+  // reduce array to get longest string
   let copyArr = [...arr];
-  // let longElements = copyArr.filter((eachElement) => {
-  //   return eachElement.length > 6;
-  // })
-  // return longElements;
   let longestString = copyArr.reduce(function(longest, currentString){
     if(currentString.length > longest.length){
       return currentString;
@@ -31,9 +29,14 @@ function longestConsec(arr, k) {
       return longest;
     }
   })
+  // add consecutive strings to longest string
   let longestStringIndex = copyArr.indexOf(longestString);
-  let consecutiveString = copyArr[longestStringIndex+1];
-  return longestString + consecutiveString;
+  let consecutiveString = copyArr[longestStringIndex+(k-1)];
+  let consecutiveStrings = [];
+  for(let i=1; i<k; i++){
+    consecutiveStrings.push(copyArr[longestStringIndex+(i)])
+  }
+  return longestString + consecutiveStrings.join('');
 }
 
 longestConsec(arr, k);
