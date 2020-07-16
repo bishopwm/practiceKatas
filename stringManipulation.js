@@ -27,11 +27,10 @@ function meeting(s) {
     let sortedLastFirst = alphaSortedNames.sort((a,b) => {
       a[1].localeCompare(b[1]);
     })
-    console.log(sortedLastFirst);
-    let finalSorted = sortedLastFirst.map((eachName)=>{
+    let finalSorted = sortedLastFirst.map((eachName) => {
       return `(${eachName[0]}, ${eachName[1]})`
     })
-    return finalSorted.join("").toString()
+    return finalSorted.join("").toString();
 }
 
 
