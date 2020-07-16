@@ -19,17 +19,19 @@ let s = "Fred:Corwill;Wilfred:Corwill;Barney:Tornbull;Betty:Tornbull;Bjon:Tornbu
 
 function meeting(s) {
     let names = s.toUpperCase().split(";")
-    // console.log(names);
     let alphaSortedNames = [];
     for(let i=0; i<names.length; i++){
       alphaSortedNames.push(names[i].split(":").reverse())
     }
     alphaSortedNames.sort();
-    console.log(alphaSortedNames);
     let sortedLastFirst = alphaSortedNames.sort((a,b) => {
       a[1].localeCompare(b[1]);
     })
-    console.log(sortedLastFirst)
+    console.log(sortedLastFirst);
+    let finalSorted = sortedLastFirst.map((eachName)=>{
+      return `(${eachName[0]}, ${eachName[1]})`
+    })
+    return finalSorted.join("").toString()
 }
 
 
