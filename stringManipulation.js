@@ -26,6 +26,11 @@ function meeting(s) {
     }
     alphaSortedNames.sort();
     console.log(alphaSortedNames);
+    let sortedLastFirst = alphaSortedNames.sort((a,b) => {
+      a[1].localeCompare(b[1]);
+    })
+    console.log(sortedLastFirst)
 }
+
 
 meeting(s);
