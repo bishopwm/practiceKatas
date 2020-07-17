@@ -20,7 +20,11 @@ function findOutlier(myIntegers){
       evenOutlier.push(myIntegers[i])
     }
   }
-  return oddOutlier[0];
+  if(oddOutlier.length === 1){
+    return oddOutlier[0];
+  } else {
+    return evenOutlier[0];
+  }
   }
 
   findOutlier(myIntegers)
