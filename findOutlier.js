@@ -7,6 +7,20 @@
 // [160, 3, 1719, 19, 11, 13, -21]
 // Should return: 160 (the only even number)
 
-function findOutlier(integers){
-    //your code here
+let myIntegers = [160, 3, 1719, 19, 11, 13, -21]
+
+function findOutlier(myIntegers){
+  let oddOutlier = [];
+  let evenOutlier = [];
+  for(let i=0; i<myIntegers.length; i++){
+    console.log(myIntegers[i])
+    if(myIntegers[i] % 2 === 0){
+      oddOutlier.push(myIntegers[i])
+    } else if(myIntegers[i] % 2 !== 0){
+      evenOutlier.push(myIntegers[i])
+    }
   }
+  return oddOutlier[0];
+  }
+
+  findOutlier(myIntegers)
